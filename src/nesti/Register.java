@@ -39,7 +39,7 @@ public class Register extends JFrame {
 	 */
 	public Register() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 624, 718);
+		setBounds(100, 100, 624, 801);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,16 +52,16 @@ public class Register extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GRAY);
-		panel_1.setBounds(10, 11, 578, 642);
+		panel_1.setBounds(10, 11, 578, 730);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 143, 578, 498);
+		panel_2.setBounds(0, 143, 578, 593);
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblUsername = new JLabel("Username:");
+		JLabel lblUsername = new JLabel("*Username:");
 		lblUsername.setBounds(10, 39, 184, 34);
 		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -73,7 +73,7 @@ public class Register extends JFrame {
 		textFieldUsername.setColumns(10);
 		panel_2.add(textFieldUsername);
 		
-		JLabel lblEmail = new JLabel("Email:");
+		JLabel lblEmail = new JLabel("*Email:");
 		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblEmail.setBounds(10, 84, 184, 34);
@@ -85,7 +85,7 @@ public class Register extends JFrame {
 		textFieldEmail.setBounds(204, 84, 347, 34);
 		panel_2.add(textFieldEmail);
 		
-		JLabel lblPassword = new JLabel("Password:");
+		JLabel lblPassword = new JLabel("*Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblPassword.setBounds(10, 129, 184, 34);
@@ -143,19 +143,6 @@ public class Register extends JFrame {
 		cPasswordField.setBounds(204, 172, 347, 34);
 		panel_2.add(cPasswordField);
 		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login login = new Login();
-				login.setVisible(true);
-				setVisible(false);
-			}
-		});
-		btnCancel.setFont(new Font("Arial", Font.BOLD, 24));
-		btnCancel.setBackground(Color.RED);
-		btnCancel.setBounds(58, 369, 194, 68);
-		panel_2.add(btnCancel);
-		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -170,7 +157,8 @@ public class Register extends JFrame {
 					if(!textFieldUsername.getText().isEmpty()&&!textFieldEmail.getText().isEmpty()&&!String.valueOf(passwordField.getPassword()).isEmpty()) {
 						if(Check.isValidEmail(textFieldEmail.getText())){
 							if(Check.calculatePasswordStrength(String.valueOf(passwordField.getPassword()))>=9) {
-								if(QueryUsers.register(userName, email, password, firstName, lastName, city)) {
+								Users newUser = new Users(userName, password, email,  firstName, lastName, city);
+								if(QueryUsers.register(newUser)) {
 									JOptionPane.showMessageDialog(null, "Congratulation your count is already create");
 								}
 								
@@ -196,7 +184,7 @@ public class Register extends JFrame {
 		});
 		btnRegister.setFont(new Font("Arial", Font.BOLD, 24));
 		btnRegister.setBackground(new Color(0, 100, 0));
-		btnRegister.setBounds(351, 369, 200, 68);
+		btnRegister.setBounds(201, 438, 200, 68);
 		panel_2.add(btnRegister);
 		
 		JLabel lblClickHereTo = new JLabel("Click here to login");
@@ -221,8 +209,14 @@ public class Register extends JFrame {
 		lblClickHereTo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClickHereTo.setForeground(Color.LIGHT_GRAY);
 		lblClickHereTo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblClickHereTo.setBounds(217, 461, 184, 26);
+		lblClickHereTo.setBounds(186, 530, 184, 26);
 		panel_2.add(lblClickHereTo);
+		
+		JLabel lblNewLabel = new JLabel("*Required Camp");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel.setBounds(25, 380, 194, 26);
+		panel_2.add(lblNewLabel);
 		
 		JLabel lblMinimize = new JLabel("-");
 		lblMinimize.setHorizontalAlignment(SwingConstants.CENTER);

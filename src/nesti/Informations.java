@@ -8,16 +8,23 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Informations extends JFrame {
 
@@ -27,10 +34,8 @@ public class Informations extends JFrame {
 	private JTextField textFieldFName;
 	private JTextField textFieldLName;
 	private JTextField textFieldCity;
-	private JPasswordField passwordField;
-	private JPasswordField cPasswordField;
 	private JButton btnUpdate;
-	public static Users user ;
+	public static Users user;
 
 	/**
 	 * Create the frame.
@@ -81,6 +86,18 @@ public class Informations extends JFrame {
 		panel_2.add(lblEmail);
 
 		textFieldEmail = new JTextField(user.getEmail());
+		textFieldEmail.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
+				
+				if (Check.isValidEmail(textFieldEmail.getText())) {
+					labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.green);
+				}
+				textFieldEmail.setBorder(labelBorder);
+			}
+		});
+		
 		textFieldEmail.setEditable(false);
 		lblEmail.setLabelFor(textFieldEmail);
 		textFieldEmail.setColumns(10);
@@ -90,70 +107,91 @@ public class Informations extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblPassword.setBounds(10, 129, 184, 34);
+		lblPassword.setBounds(10, 264, 184, 34);
 		panel_2.add(lblPassword);
-
-		JLabel lblPasswordRetry = new JLabel("Confirm Password:");
-		lblPasswordRetry.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPasswordRetry.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblPasswordRetry.setBounds(0, 172, 194, 34);
-		panel_2.add(lblPasswordRetry);
 
 		JLabel lblFiestName = new JLabel("First Name:");
 		lblFiestName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFiestName.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblFiestName.setBounds(10, 217, 184, 34);
+		lblFiestName.setBounds(10, 129, 184, 34);
 		panel_2.add(lblFiestName);
 
 		textFieldFName = new JTextField(user.getFirstName());
 		textFieldFName.setEditable(false);
 		lblFiestName.setLabelFor(textFieldFName);
 		textFieldFName.setColumns(10);
-		textFieldFName.setBounds(204, 217, 347, 34);
+		textFieldFName.setBounds(204, 129, 347, 34);
 		panel_2.add(textFieldFName);
 
 		JLabel lblLastName = new JLabel("Last Name:");
 		lblLastName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLastName.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblLastName.setBounds(10, 262, 184, 34);
+		lblLastName.setBounds(10, 174, 184, 34);
 		panel_2.add(lblLastName);
 
 		textFieldLName = new JTextField(user.getLastName());
 		textFieldLName.setEditable(false);
 		lblLastName.setLabelFor(textFieldLName);
 		textFieldLName.setColumns(10);
-		textFieldLName.setBounds(204, 262, 347, 34);
+		textFieldLName.setBounds(204, 174, 347, 34);
 		panel_2.add(textFieldLName);
 
 		JLabel lblCity = new JLabel("City:");
 		lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCity.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblCity.setBounds(10, 307, 184, 34);
+		lblCity.setBounds(10, 219, 184, 34);
 		panel_2.add(lblCity);
 
 		textFieldCity = new JTextField(user.getCity());
 		textFieldCity.setEditable(false);
 		lblCity.setLabelFor(textFieldCity);
 		textFieldCity.setColumns(10);
-		textFieldCity.setBounds(204, 307, 347, 34);
+		textFieldCity.setBounds(204, 219, 347, 34);
 		panel_2.add(textFieldCity);
 
-		passwordField = new JPasswordField();
-		lblPassword.setLabelFor(passwordField);
-		passwordField.setBounds(204, 129, 347, 34);
-		panel_2.add(passwordField);
-
-		cPasswordField = new JPasswordField();
-		lblPasswordRetry.setLabelFor(cPasswordField);
-		cPasswordField.setBounds(204, 172, 347, 34);
-		panel_2.add(cPasswordField);
-
 		btnUpdate = new JButton("Update");
-		btnUpdate.setEnabled(false);
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (textFieldEmail.isEditable()) {
+
+					if (!textFieldEmail.getText().isEmpty()) {
+						if (Check.isValidEmail(textFieldEmail.getText())) {
+							user = new Users(user.getUserName(),user.getPassword(),textFieldEmail.getText(),textFieldFName.getText(),textFieldLName.getText(),textFieldCity.getText());
+							if (QueryUsers.updateById(user)) {
+								JOptionPane.showMessageDialog(null, "Update succesfull");
+								textFieldEmail.setEditable(false);
+								textFieldFName.setEditable(false);
+								textFieldLName.setEditable(false);
+								textFieldCity.setEditable(false);
+							}else {
+								JOptionPane.showMessageDialog(null, "update fail");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Please enter a valid email");
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(null, "One or more Required Field are empty");
+					}
+				} else {
+
+					textFieldEmail.setEditable(true);
+					textFieldFName.setEditable(true);
+					textFieldLName.setEditable(true);
+					textFieldCity.setEditable(true);
+				}
+			}
+		});
 		btnUpdate.setFont(new Font("Arial", Font.BOLD, 24));
 		btnUpdate.setBackground(new Color(0, 100, 0));
 		btnUpdate.setBounds(350, 378, 200, 68);
 		panel_2.add(btnUpdate);
+
+		JButton btnNewButton = new JButton("Change Password");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnNewButton.setBounds(204, 264, 347, 33);
+		panel_2.add(btnNewButton);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
@@ -166,5 +204,4 @@ public class Informations extends JFrame {
 		lblRegister.setBounds(20, 11, 205, 49);
 		panel_3.add(lblRegister);
 	}
-
 }

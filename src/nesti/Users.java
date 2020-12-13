@@ -20,10 +20,11 @@ public class Users {
 	String city = null;
 	
 	
-	public Users(String userName, String email,  String firstName ,String lastName ,String city ) {
+	public Users(String userName,String Password, String email,  String firstName ,String lastName ,String city ) {
 		
 			this.userName = userName;
 			this.email = email;
+			this.Password = Password;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.city = city;
