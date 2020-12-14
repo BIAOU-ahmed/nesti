@@ -160,5 +160,26 @@ public class QueryUsers extends MyConection {
 		return success;
 	}
 	
+	public static boolean updatePsw(Users newData) {
+		openConnection();
+		boolean success = false;
+
+		try {
+			String query = "UPDATE `users` SET `Password` = ? WHERE `users`.`UserName` = ?; ";
+			PreparedStatement declaration = accessDataBase.prepareStatement(query);
+			declaration.setString(1, newData.getPassword());
+			declaration.setString(2, newData.getUserName());
+			
+			int executeUpdate = declaration.executeUpdate();
+			success = (executeUpdate == 1);
+			System.out.println(success);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		closeConnection();
+		return success;
+	}
+	
 
 }

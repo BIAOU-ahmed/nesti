@@ -189,6 +189,13 @@ public class Informations extends JFrame {
 		panel_2.add(btnUpdate);
 
 		JButton btnNewButton = new JButton("Change Password");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChangePassword.user = user;
+				ChangePassword changePassword = new ChangePassword();
+				changePassword.setVisible(true);
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnNewButton.setBounds(204, 264, 347, 33);
 		panel_2.add(btnNewButton);
