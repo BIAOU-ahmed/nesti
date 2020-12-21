@@ -75,7 +75,7 @@ public class QueryUsers extends MyConection {
 		try {
 
 			openConnection();
-			String query = "SELECT `UserName`, `Password`, `Email`, `FirstName`, `LastName`, `City` FROM `users` WHERE (`UserName`=? or `Email` = ?) ";
+			String query = "SELECT * FROM `users` WHERE (`UserName`=? or `Email` = ?) ";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
 			declaration.setString(1, username);
@@ -83,12 +83,12 @@ public class QueryUsers extends MyConection {
 			ResultSet resultat = declaration.executeQuery();
 
 			while (resultat.next()) {
-				String pseudo = resultat.getString("UserName");
-				String email = resultat.getString("Email");
-				String firstName = resultat.getString("FirstName");
-				String lastName = resultat.getString("LastName");
-				String city = resultat.getString("City");
-				String password = resultat.getString("Password");
+				String pseudo = resultat.getString(1);
+				String email = resultat.getString(2);
+				String firstName = resultat.getString(4);
+				String lastName = resultat.getString(5);
+				String city = resultat.getString(6);
+				String password = resultat.getString(3);
 				result = new Users(pseudo,password, email, firstName, lastName, city);
 			}
 
