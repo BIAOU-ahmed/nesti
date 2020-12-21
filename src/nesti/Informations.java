@@ -43,12 +43,18 @@ public class Informations extends JFrame {
 	public Informations() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 624, 718);
+		setBounds(100, 100, 610, 671);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+		setUndecorated(true);
+
+		this.setLocationRelativeTo(null);
+		DragFrameListener dragListener = new DragFrameListener(this);
+		this.addMouseListener(dragListener);
+		this.addMouseMotionListener(dragListener);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -90,14 +96,14 @@ public class Informations extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
-				
+
 				if (Check.isValidEmail(textFieldEmail.getText())) {
 					labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.green);
 				}
 				textFieldEmail.setBorder(labelBorder);
 			}
 		});
-		
+
 		textFieldEmail.setEditable(false);
 		lblEmail.setLabelFor(textFieldEmail);
 		textFieldEmail.setColumns(10);
@@ -157,14 +163,15 @@ public class Informations extends JFrame {
 
 					if (!textFieldEmail.getText().isEmpty()) {
 						if (Check.isValidEmail(textFieldEmail.getText())) {
-							user = new Users(user.getUserName(),user.getPassword(),textFieldEmail.getText(),textFieldFName.getText(),textFieldLName.getText(),textFieldCity.getText());
+							user = new Users(user.getUserName(), user.getPassword(), textFieldEmail.getText(),
+									textFieldFName.getText(), textFieldLName.getText(), textFieldCity.getText());
 							if (QueryUsers.updateById(user)) {
 								JOptionPane.showMessageDialog(null, "Update succesfull");
 								textFieldEmail.setEditable(false);
 								textFieldFName.setEditable(false);
 								textFieldLName.setEditable(false);
 								textFieldCity.setEditable(false);
-							}else {
+							} else {
 								JOptionPane.showMessageDialog(null, "update fail");
 							}
 						} else {
@@ -210,5 +217,63 @@ public class Informations extends JFrame {
 		lblRegister.setFont(new Font("Arial", Font.BOLD, 26));
 		lblRegister.setBounds(20, 11, 205, 49);
 		panel_3.add(lblRegister);
+		
+		
+		Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+		JLabel lblMinimize = new JLabel("-");
+		
+		lblMinimize.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
+				lblMinimize.setBorder(labelBorder);
+				lblMinimize.setForeground(Color.white);
+				lblMinimize.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+				lblMinimize.setBorder(labelBorder);
+				lblMinimize.setForeground(Color.black);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setState(JFrame.ICONIFIED);
+			}
+		});
+		lblMinimize.setBorder(labelBorder);
+		lblMinimize.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMinimize.setFont(new Font("Tahoma", Font.BOLD, 40));
+		lblMinimize.setBounds(481, 11, 36, 40);
+		panel_1.add(lblMinimize);
+		
+		JLabel lblClose = new JLabel("x");
+		
+		
+		lblClose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
+				lblClose.setBorder(labelBorder);
+				lblClose.setForeground(Color.white);
+				lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+				lblClose.setBorder(labelBorder);
+				lblClose.setForeground(Color.black);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		lblClose.setBorder(labelBorder);
+		lblClose.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClose.setFont(new Font("Tahoma", Font.BOLD, 40));
+		lblClose.setBounds(532, 11, 36, 40);
+		panel_1.add(lblClose);
 	}
 }

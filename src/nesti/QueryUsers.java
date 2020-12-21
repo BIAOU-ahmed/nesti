@@ -16,6 +16,12 @@ import javax.swing.JOptionPane;
  */
 public class QueryUsers extends MyConection {
 
+	/**
+	 * function to check if the user exist or not
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public static boolean login(String username, String password) {
 
 		boolean result = false;
@@ -43,6 +49,12 @@ public class QueryUsers extends MyConection {
 		return result;
 	}
 
+	/**
+	 * this function read a user by username or email
+	 * @param username
+	 * @param email
+	 * @return
+	 */
 	public static boolean readByUsername(String username, String email) {
 
 		boolean result = false;
@@ -69,6 +81,11 @@ public class QueryUsers extends MyConection {
 		return result;
 	}
 
+	/**
+	 * this function read by username or email and return the user
+	 * @param username
+	 * @return the user
+	 */
 	public static Users readBy(String username) {
 		Users result = null;
 
@@ -101,6 +118,11 @@ public class QueryUsers extends MyConection {
 		return result;
 	}
 
+	/**
+	 * this function register the new user in the data base
+	 * @param newUser
+	 * @return
+	 */
 	public static boolean register(Users newUser) {
 		boolean flag = false;
 //		if (firstName.isEmpty()) {
@@ -138,6 +160,12 @@ public class QueryUsers extends MyConection {
 		return flag;
 	}
 	
+	
+	/**
+	 * this function update the user data 
+	 * @param newData
+	 * @return
+	 */
 	public static boolean updateById(Users newData) {
 		openConnection();
 		boolean success = false;
@@ -160,6 +188,11 @@ public class QueryUsers extends MyConection {
 		return success;
 	}
 	
+	/**
+	 * this function update the user password
+	 * @param newData
+	 * @return
+	 */
 	public static boolean updatePsw(Users newData) {
 		openConnection();
 		boolean success = false;

@@ -26,8 +26,8 @@ import java.awt.event.ActionEvent;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldUsername;
-	private JPasswordField passwordField;
+//	private JTextField textFieldUsername;
+//	private JPasswordField passwordField;
 	Users user;
 	
 
@@ -61,28 +61,50 @@ public class Login extends JFrame {
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblUsername.setBounds(40, 47, 116, 50);
-		panel_2.add(lblUsername);
 		
-		textFieldUsername = new JTextField();
-		lblUsername.setLabelFor(textFieldUsername);
-		textFieldUsername.setBounds(166, 47, 301, 50);
-		panel_2.add(textFieldUsername);
-		textFieldUsername.setColumns(10);
+		this.setLocationRelativeTo(null);
+        DragFrameListener dragListener= new DragFrameListener(this);
+        this.addMouseListener(dragListener);
+        this.addMouseMotionListener(dragListener);
+        
+//		JLabel lblUsername = new JLabel("Username:");
+//		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
+//		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 20));
+//		lblUsername.setBounds(40, 47, 116, 50);
+//		panel_2.add(lblUsername);
 		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblPassword.setBounds(40, 122, 116, 57);
-		panel_2.add(lblPassword);
+//		textFieldUsername = new JTextField();
+////		lblUsername.setLabelFor(textFieldUsername);
+//		textFieldUsername.setBounds(166, 47, 301, 50);
+//		panel_2.add(textFieldUsername);
+//		textFieldUsername.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		lblPassword.setLabelFor(passwordField);
-		passwordField.setBounds(166, 122, 301, 57);
-		panel_2.add(passwordField);
+		TextField textField = new TextField(166,47,"Username");
+		panel_2.add(textField);
+//		JLabel lblPassword = new JLabel();
+//		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+//		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
+//		lblPassword.setBounds(40, 122, 116, 57);
+//		panel_2.add(lblPassword);
+		
+		String values[] = { "Username:","Password:"};
+		
+		// it's the loop that creates all my label
+		int x = 40;
+		int y = 47;
+		for (int i = 0; i < values.length; i++) {
+			Labels newLab = new Labels(x,y,values[i]);
+			panel_2.add(newLab);
+			y+=75;
+		}
+		
+		PasswordField password = new PasswordField(166,122);
+		panel_2.add(password);
+		
+//		passwordField = new JPasswordField();
+////		lblPassword.setLabelFor(passwordField);
+//		passwordField.setBounds(166, 122, 301, 57);
+//		panel_2.add(passwordField);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBackground(Color.RED);
@@ -90,12 +112,14 @@ public class Login extends JFrame {
 		btnCancel.setBounds(82, 220, 156, 57);
 		panel_2.add(btnCancel);
 		
+		
+				
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = textFieldUsername.getText();
-				String password = String.valueOf(passwordField.getPassword());
-				if(QueryUsers.login(username, password)) {
+				String username = textField.getText();
+				String passwords = String.valueOf(password.getPassword());
+				if(QueryUsers.login(username, passwords)) {
 					user = QueryUsers.readBy(username);
 					Informations.user = user;
 					Informations informations = new Informations();

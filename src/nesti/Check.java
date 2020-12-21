@@ -11,6 +11,12 @@ import java.util.regex.Pattern;
  *
  */
 public class Check {
+	
+	/**
+	 * this function check if the password is strong
+	 * @param password
+	 * @return
+	 */
 	  public static int calculatePasswordStrength(String password){
 	        
 	        //total score of password
@@ -43,6 +49,11 @@ public class Check {
 	        
 	    }
 	  
+	  /**
+	   * check if the email is valid a email
+	   * @param email
+	   * @return
+	   */
 	  public static boolean isValidEmail(String email) {
 		  
 	        // Regex to check valid email.
