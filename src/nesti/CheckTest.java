@@ -27,6 +27,7 @@ public class CheckTest extends TestCase {
 		assertEquals(false, Check.isValidEmail("ahmed"));
 		assertEquals(false, Check.isValidEmail("ahmed@example"));
 		assertEquals(false, Check.isValidEmail("ahmed@example.c"));
+		assertEquals(true, Check.isValidEmail("ahmed@example.fr"));
 		assertEquals(true, Check.isValidEmail("ahmed@example.com"));
 	}
 

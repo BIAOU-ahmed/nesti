@@ -14,13 +14,13 @@ import javax.swing.SwingConstants;
  */
 public class Labels extends JLabel {
 
-	public Labels(int x, int y,String value) {
+	public Labels(int x, int y,int heigth, int width,String value, Font font) {
 		// TODO Auto-generated constructor stub
 		
 		this.setText(value);
 		this.setHorizontalAlignment(SwingConstants.RIGHT);
-		this.setFont(new Font("Tahoma", Font.BOLD, 20));
-		this.setBounds(x, y, 116, 57);
+		this.setFont(font);
+		this.setBounds(x, y, heigth, width);
 		
 	}
 }

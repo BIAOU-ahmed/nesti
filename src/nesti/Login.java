@@ -1,27 +1,23 @@
 package nesti;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
+import listener.CloseListener;
+import listener.DragFrameListener;
+import listener.LoginListener;
+import listener.MinimizeListener;
+import listener.RegisterLabelListener;
+
+
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+
 import java.awt.Color;
-import java.awt.Cursor;
+
 
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JPasswordField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
@@ -79,8 +75,10 @@ public class Login extends JFrame {
 //		panel_2.add(textFieldUsername);
 //		textFieldUsername.setColumns(10);
 		
-		TextField textField = new TextField(166,47,"Username");
+		TextField textField = new TextField(166,47, 301, 50,"");
 		panel_2.add(textField);
+		PasswordField password = new PasswordField(166,122,301,57);
+		panel_2.add(password);
 //		JLabel lblPassword = new JLabel();
 //		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 //		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -93,139 +91,178 @@ public class Login extends JFrame {
 		int x = 40;
 		int y = 47;
 		for (int i = 0; i < values.length; i++) {
-			Labels newLab = new Labels(x,y,values[i]);
+			Labels newLab = new Labels(x,y,116,57,values[i],(new Font("Tahoma", Font.BOLD, 20)));
 			panel_2.add(newLab);
 			y+=75;
 		}
+		String btnValue[] = { "Cancel","Login"};
 		
-		PasswordField password = new PasswordField(166,122);
-		panel_2.add(password);
+		// it's the loop that creates all my label
+		int xbtn = 82;
+		int ybtn = 220;
+		for (int i = 0; i < btnValue.length; i++) {
+			Color btnColor = new Color(0, 100, 0);
+			Buttons btn;
+			if(i==0) {
+				btnColor =Color.RED;
+			}
+			btn = new Buttons(xbtn,ybtn,156,57,btnValue[i],btnColor);
+			if(i==1) {
+				btn.addActionListener(new LoginListener(textField,password,this));
+			}
+			panel_2.add(btn);
+			xbtn+=229;
+		}
+		
+		
 		
 //		passwordField = new JPasswordField();
 ////		lblPassword.setLabelFor(passwordField);
 //		passwordField.setBounds(166, 122, 301, 57);
 //		panel_2.add(passwordField);
 		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBackground(Color.RED);
-		btnCancel.setFont(new Font("Arial", Font.BOLD, 24));
-		btnCancel.setBounds(82, 220, 156, 57);
-		panel_2.add(btnCancel);
+//		JButton btnCancel = new JButton("Cancel");
+//		btnCancel.setBackground(Color.RED);
+//		btnCancel.setFont(new Font("Arial", Font.BOLD, 24));
+//		btnCancel.setBounds(82, 220, 156, 57);
+//		panel_2.add(btnCancel);
 		
 		
-				
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = textField.getText();
-				String passwords = String.valueOf(password.getPassword());
-				if(QueryUsers.login(username, passwords)) {
-					user = QueryUsers.readBy(username);
-					Informations.user = user;
-					Informations informations = new Informations();
-					informations.setVisible(true);
-					
-					
-					setVisible(false);
-				}else {
-					JOptionPane.showMessageDialog(null, "Error");
-				}
-			}
-		});
-		btnLogin.setFont(new Font("Arial", Font.BOLD, 24));
-		btnLogin.setBackground(new Color(0, 100, 0));
-		btnLogin.setBounds(311, 220, 156, 57);
-		panel_2.add(btnLogin);
 		
-		JLabel lblRegister = new JLabel("Click here to create a new account");
-		lblRegister.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblRegister.setForeground(Color.GRAY);
-				lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblRegister.setForeground(Color.LIGHT_GRAY);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Register register = new Register();
-				register.setVisible(true);
-				setVisible(false);
-				
-			}
-		});
+//		JButton btnLogin = new JButton("Login");
+//		btnLogin.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String username = textField.getText();
+//				String passwords = String.valueOf(password.getPassword());
+//				if(QueryUsers.login(username, passwords)) {
+//					user = QueryUsers.readBy(username);
+//					Informations.user = user;
+//					Informations informations = new Informations();
+//					informations.setVisible(true);
+//					
+//					
+//					setVisible(false);
+//				}else {
+//					JOptionPane.showMessageDialog(null, "Error");
+//				}
+//			}
+//		});
+//		btnLogin.setFont(new Font("Arial", Font.BOLD, 24));
+//		btnLogin.setBackground(new Color(0, 100, 0));
+//		btnLogin.setBounds(311, 220, 156, 57);
+//		panel_2.add(btnLogin);
+		
+//		JLabel lblRegister = new JLabel("Click here to create a new account");
+//		lblRegister.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				lblRegister.setForeground(Color.GRAY);
+//				lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//			}
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//				lblRegister.setForeground(Color.LIGHT_GRAY);
+//			}
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				Register register = new Register();
+//				register.setVisible(true);
+//				setVisible(false);
+//				
+//			}
+//		});
+//		lblRegister.setForeground(Color.LIGHT_GRAY);
+//		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblRegister.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblRegister.setBounds(136, 299, 301, 26);
+		
+		Labels lblRegister = new Labels(136,299,301,26,"Click here to create a new account",(new Font("Tahoma", Font.PLAIN, 18)));
 		lblRegister.setForeground(Color.LIGHT_GRAY);
-		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegister.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRegister.setBounds(136, 299, 301, 26);
 		panel_2.add(lblRegister);
+		Register register = new Register();
+		lblRegister.addMouseListener(new RegisterLabelListener(lblRegister,this,"register"));
+		
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(115, 0, 235, 85);
 		panel_1.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Login");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Arial", Font.BOLD, 26));
-		lblTitle.setBounds(70, 11, 104, 49);
-		panel_3.add(lblTitle);
+//		JLabel lblTitle = new JLabel("Login");
+//		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblTitle.setFont(new Font("Arial", Font.BOLD, 26));
+//		lblTitle.setBounds(70, 11, 104, 49);
+//		panel_3.add(lblTitle);
+		Font font = new Font("Arial", Font.BOLD, 36);
+		Labels newLab = new Labels(70,11,104,49,"Login",font);
+		panel_3.add(newLab);
 		
 		Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
-		JLabel lblClose = new JLabel("x");
-		lblClose.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
-				lblClose.setBorder(labelBorder);
-				lblClose.setForeground(Color.white);
-				lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
-				lblClose.setBorder(labelBorder);
-				lblClose.setForeground(Color.black);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-		});
-		lblClose.setBorder(labelBorder);
-		lblClose.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClose.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblClose.setBounds(497, 11, 36, 40);
-		panel_1.add(lblClose);
+//		JLabel lblClose = new JLabel("x");
+//		lblClose.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
+//				lblClose.setBorder(labelBorder);
+//				lblClose.setForeground(Color.white);
+//				lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//			}
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+//				lblClose.setBorder(labelBorder);
+//				lblClose.setForeground(Color.black);
+//			}
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		lblClose.setBorder(labelBorder);
+//		lblClose.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblClose.setFont(new Font("Tahoma", Font.BOLD, 40));
+//		lblClose.setBounds(497, 11, 36, 40);
 		
-		JLabel lblMinimize = new JLabel("-");
-		lblMinimize.setBorder(labelBorder);
-		lblMinimize.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
-				lblMinimize.setBorder(labelBorder);
-				lblMinimize.setForeground(Color.white);
-				lblMinimize.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
-				lblMinimize.setBorder(labelBorder);
-				lblMinimize.setForeground(Color.black);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setState(JFrame.ICONIFIED);
-			}
-		});
-		lblMinimize.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMinimize.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblMinimize.setBounds(446, 11, 36, 40);
-		panel_1.add(lblMinimize);
+		
+		Labels closeLbl = new Labels(497,11,36,40,"x",(new Font("Tahoma", Font.BOLD, 40)));
+		closeLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(closeLbl);
+		closeLbl.addMouseListener(new CloseListener(closeLbl));
+		closeLbl.setBorder(labelBorder);
+		
+		Labels minimizeLbl = new Labels(446,11,36,40,"-",(new Font("Tahoma", Font.BOLD, 40)));
+		minimizeLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		minimizeLbl.addMouseListener(new MinimizeListener(minimizeLbl,this));
+		minimizeLbl.setBorder(labelBorder);
+		panel_1.add(minimizeLbl);
+		
+		
+//		JLabel lblMinimize = new JLabel("-");
+//		lblMinimize.setBorder(labelBorder);
+//		lblMinimize.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
+//				lblMinimize.setBorder(labelBorder);
+//				lblMinimize.setForeground(Color.white);
+//				lblMinimize.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//				
+//			}
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//				Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+//				lblMinimize.setBorder(labelBorder);
+//				lblMinimize.setForeground(Color.black);
+//			}
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				setState(JFrame.ICONIFIED);
+//			}
+//		});
+//		lblMinimize.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblMinimize.setFont(new Font("Tahoma", Font.BOLD, 40));
+//		lblMinimize.setBounds(446, 11, 36, 40);
+//		panel_1.add(lblMinimize);
 		this.setLocationRelativeTo(null);
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nesti;
+package listener;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

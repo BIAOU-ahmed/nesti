@@ -11,10 +11,10 @@ import javax.swing.JPasswordField;
  */
 public class PasswordField extends JPasswordField{
 
-	public PasswordField(int x, int y) {
+	public PasswordField(int x, int y,int heigth,int width) {
 	
 //		lblPassword.setLabelFor(passwordField);
-		this.setBounds(x, y, 301, 57);
+		this.setBounds(x, y, heigth, width);
 		
 	}
 	

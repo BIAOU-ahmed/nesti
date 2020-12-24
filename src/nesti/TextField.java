@@ -11,12 +11,13 @@ import javax.swing.JTextField;
  */
 public class TextField extends JTextField {
 
-	public TextField(int x, int y,String name) {
+	public TextField(int x, int y, int heigth, int width,String value) {
 		// TODO Auto-generated constructor stub
 	
 //		lblUsername.setLabelFor(textFieldUsername);
-		this.setName(name);
-		this.setBounds(x, y, 301, 50);
+		
+		this.setText(value);
+		this.setBounds(x, y, heigth, width);
 		
 		this.setColumns(10);
 	}
