@@ -4,6 +4,7 @@
 package nesti;
 
 import java.sql.PreparedStatement;
+import com.lambdaworks.crypto.SCryptUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,15 +29,18 @@ public class QueryUsers extends MyConection {
 		try {
 
 			openConnection();
-			String query = "SELECT * FROM `users` WHERE (`UserName`=? or `Email` = ?) AND `Password`=?";
+			String query = "SELECT * FROM `users` WHERE (`UserName`=? or `Email` = ?) ";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
 			declaration.setString(1, username);
 			declaration.setString(2, username);
-			declaration.setString(3, password);
+//			declaration.setString(3, password);
 			ResultSet resultat = declaration.executeQuery();
 			if (resultat.next()) {
-				result = true;
+				 boolean matched = SCryptUtil.check(password, resultat.getString(3));
+				 
+				result = matched;
+				System.out.println(result);
 			}
 			/* Récupération des données */
 
@@ -125,16 +129,11 @@ public class QueryUsers extends MyConection {
 	 */
 	public static boolean register(Users newUser) {
 		boolean flag = false;
-//		if (firstName.isEmpty()) {
-//			firstName = null;
-//		}
-//		if (lastName.isEmpty()) {
-//			lastName = null;
-//		}
-//		if (city.isEmpty()) {
-//			city = null;
-//		}
 
+
+	     String generatedSecuredPasswordHash = SCryptUtil.scrypt(newUser.getPassword(), 16, 16, 16);
+	        System.out.println(generatedSecuredPasswordHash);
+	        
 		if (!readByUsername(newUser.getUserName(), newUser.getEmail())) {
 			try {
 				openConnection();
@@ -142,7 +141,7 @@ public class QueryUsers extends MyConection {
 				PreparedStatement declaration = accessDataBase.prepareStatement(query);
 				declaration.setString(1, newUser.getUserName());
 				declaration.setString(2, newUser.getEmail());
-				declaration.setString(3, newUser.getPassword());
+				declaration.setString(3, generatedSecuredPasswordHash);
 				declaration.setString(4, newUser.getFirstName());
 				declaration.setString(5, newUser.getLastName());
 				declaration.setString(6, newUser.getCity());
@@ -196,14 +195,16 @@ public class QueryUsers extends MyConection {
 	public static boolean updatePsw(Users newData) {
 		openConnection();
 		boolean success = false;
-
+		String generatedSecuredPasswordHash = SCryptUtil.scrypt(newData.getPassword(), 16, 16, 16);
+		
 		try {
 			String query = "UPDATE `users` SET `Password` = ? WHERE `users`.`UserName` = ?; ";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
-			declaration.setString(1, newData.getPassword());
+			declaration.setString(1, generatedSecuredPasswordHash);
 			declaration.setString(2, newData.getUserName());
 			
 			int executeUpdate = declaration.executeUpdate();
+			ChangePassword.user.setPassword(generatedSecuredPasswordHash);
 			success = (executeUpdate == 1);
 			System.out.println(success);
 		} catch (SQLException e) {

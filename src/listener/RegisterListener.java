@@ -6,9 +6,11 @@ package listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import nesti.Check;
+import nesti.Login;
 import nesti.PasswordField;
 import nesti.QueryUsers;
 import nesti.TextField;
@@ -21,10 +23,12 @@ import nesti.Users;
 public class RegisterListener implements ActionListener{
 	TextField[] textField;
 	PasswordField[] password;
-	public RegisterListener(TextField[] textField,PasswordField[] password) {
+	JFrame frame;
+	public RegisterListener(TextField[] textField,PasswordField[] password,JFrame frame) {
 		// TODO Auto-generated constructor stub
 		this.textField = textField;
 		this.password = password;
+		this.frame = frame;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -42,7 +46,10 @@ public class RegisterListener implements ActionListener{
 					if (Check.calculatePasswordStrength(String.valueOf(this.password[0].getPassword())) >= 9) {
 						Users newUser = new Users(userName, password, email, firstName, lastName, city);
 						if (QueryUsers.register(newUser)) {
-							JOptionPane.showMessageDialog(null, "Congratulation your count is already create");
+							JOptionPane.showMessageDialog(null, "Congratulation your account is already create");
+							Login login = new Login();
+							login.setVisible(true);
+							this.frame.setVisible(false);
 						}
 
 					} else if (Check

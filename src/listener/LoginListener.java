@@ -42,7 +42,7 @@ public class LoginListener implements ActionListener{
 			
 			frame.setVisible(false);
 		}else {
-			JOptionPane.showMessageDialog(null, "Error");
+			JOptionPane.showMessageDialog(null, "Invalid informations");
 		}
 	}
 }

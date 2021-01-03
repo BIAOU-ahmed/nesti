@@ -6,8 +6,11 @@ package listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import com.lambdaworks.crypto.SCryptUtil;
 
 import nesti.ChangePassword;
 import nesti.Check;
@@ -20,15 +23,16 @@ import nesti.QueryUsers;
  */
 public class UpdatePassWordListener implements ActionListener{
 	PasswordField passWord[];
-	JFrame frame;
-			public UpdatePassWordListener(PasswordField passWord[],JFrame frame) {
+	JDialog frame;
+			public UpdatePassWordListener(PasswordField passWord[],JDialog changePassword) {
 				// TODO Auto-generated constructor stub
 				this.passWord = passWord;
-				this.frame =frame;
+				this.frame =changePassword;
 			}
 	public void actionPerformed(ActionEvent e) {
 		if (String.valueOf(passWord[1].getPassword()).equals(String.valueOf(passWord[2].getPassword()))) {
-			if (String.valueOf(passWord[0].getPassword()).equals(ChangePassword.user.getPassword())) {
+			boolean matched = SCryptUtil.check(String.valueOf(passWord[0].getPassword()), ChangePassword.user.getPassword());
+			if (matched) {
 				if (Check.calculatePasswordStrength(String.valueOf(passWord[1].getPassword())) >= 9) {
 					ChangePassword.user.setPassword(String.valueOf(passWord[1].getPassword()));
 					if(QueryUsers.updatePsw(ChangePassword.user)) {
@@ -37,13 +41,13 @@ public class UpdatePassWordListener implements ActionListener{
 					}
 					
 				}else {
-					System.out.println("trop faible mot de passe");
+					System.out.println("Mot de passe trop faible");
 				}
 			}else {
-				System.out.println("verifier le mot de passe actuel");
+				System.out.println("Verifier le mot de passe actuel");
 			}
 		}else {
-			System.out.println("entrer deux mot de passe identique");
+			System.out.println("Entrer deux mot de passe identique");
 		}
 	}
 }
