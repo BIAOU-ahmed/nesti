@@ -22,7 +22,7 @@ public class UpdateListener implements ActionListener{
 	TextField listTextField[];
 	Users user;
 	public UpdateListener(TextField listTextField[],Users user) {
-		// TODO Auto-generated constructor stub
+		
 		this.listTextField = listTextField;
 		this.user = user;
 	}

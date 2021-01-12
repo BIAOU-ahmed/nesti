@@ -25,7 +25,7 @@ public class UpdatePassWordListener implements ActionListener{
 	PasswordField passWord[];
 	JDialog frame;
 			public UpdatePassWordListener(PasswordField passWord[],JDialog changePassword) {
-				// TODO Auto-generated constructor stub
+				
 				this.passWord = passWord;
 				this.frame =changePassword;
 			}

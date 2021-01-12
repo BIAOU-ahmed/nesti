@@ -15,7 +15,7 @@ import javax.swing.JButton;
 public class Buttons extends JButton{
 
 	public Buttons(int x, int y, int heigth, int width,String text,Color font) {
-		// TODO Auto-generated constructor stub
+		
 		
 		this.setText(text);
 		this.setBackground(font);

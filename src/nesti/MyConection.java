@@ -33,7 +33,7 @@ public class MyConection {
 		try {
 			accessDataBase = DriverManager.getConnection(url, utilisateur, motDePasse);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

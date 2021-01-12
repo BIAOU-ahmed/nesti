@@ -23,7 +23,7 @@ public class ConfirmPaswordListener implements KeyListener{
 	JPasswordField Confirmpsw;
 	
 	public ConfirmPaswordListener(JPasswordField psw,JPasswordField Confirmpsw) {
-		// TODO Auto-generated constructor stub
+		
 		this.psw = psw;
 		this.Confirmpsw = Confirmpsw;
 	}
@@ -42,10 +42,10 @@ public class ConfirmPaswordListener implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 		Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
-		//
+		
 		if (String.valueOf(psw.getPassword()).equals(String.valueOf(Confirmpsw.getPassword()))) {
 			labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.green);
 		}

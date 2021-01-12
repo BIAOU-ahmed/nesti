@@ -25,7 +25,7 @@ public class RegisterListener implements ActionListener{
 	PasswordField[] password;
 	JFrame frame;
 	public RegisterListener(TextField[] textField,PasswordField[] password,JFrame frame) {
-		// TODO Auto-generated constructor stub
+		
 		this.textField = textField;
 		this.password = password;
 		this.frame = frame;
@@ -50,6 +50,8 @@ public class RegisterListener implements ActionListener{
 							Login login = new Login();
 							login.setVisible(true);
 							this.frame.setVisible(false);
+						}else {
+							JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la conection à la base de données");
 						}
 
 					} else if (Check

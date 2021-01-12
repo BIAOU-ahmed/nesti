@@ -180,7 +180,7 @@ public class QueryUsers extends MyConection {
 			int executeUpdate = declaration.executeUpdate();
 			success = (executeUpdate == 1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		closeConnection();
@@ -208,7 +208,7 @@ public class QueryUsers extends MyConection {
 			success = (executeUpdate == 1);
 			System.out.println(success);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		closeConnection();

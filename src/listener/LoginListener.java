@@ -25,7 +25,7 @@ public class LoginListener implements ActionListener{
 	JFrame frame;
 	
 	public LoginListener(TextField text,PasswordField password,JFrame frame) {
-		// TODO Auto-generated constructor stub
+		
 		this.text = text;
 		this.password = password;
 		this.frame = frame;

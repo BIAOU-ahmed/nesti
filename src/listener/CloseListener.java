@@ -21,7 +21,7 @@ public class CloseListener implements MouseListener{
 	JLabel label;
 	
 	public CloseListener(JLabel label) {
-		// TODO Auto-generated constructor stub
+		
 		this.label = label;
 	}
 	

@@ -22,7 +22,7 @@ public class MinimizeListener implements MouseListener {
 	JFrame frame;
 
 	public MinimizeListener(JLabel label, JFrame frame) {
-		// TODO Auto-generated constructor stub
+		
 		this.label = label;
 		this.frame = frame;
 	}

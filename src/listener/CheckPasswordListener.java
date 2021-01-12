@@ -23,7 +23,7 @@ public class CheckPasswordListener implements KeyListener{
 	JPasswordField psw;
 	
 	public CheckPasswordListener(JPasswordField psw) {
-		// TODO Auto-generated constructor stub
+		
 		this.psw = psw;
 	}
 	
@@ -41,10 +41,10 @@ public class CheckPasswordListener implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 		Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
-		//
+		
 		if (Check.calculatePasswordStrength(String.valueOf(psw.getPassword())) >= 9) {
 			labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.green);
 		}

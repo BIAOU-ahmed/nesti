@@ -22,7 +22,7 @@ public class CheckEmailListener implements KeyListener{
 	JTextField textField;
 	
 	public CheckEmailListener(JTextField textField) {
-		// TODO Auto-generated constructor stub
+		
 		this.textField = textField;
 	}
 
@@ -40,7 +40,7 @@ public class CheckEmailListener implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 		Border labelBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
 		//

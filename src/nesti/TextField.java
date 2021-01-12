@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 public class TextField extends JTextField {
 
 	public TextField(int x, int y, int heigth, int width,String value) {
-		// TODO Auto-generated constructor stub
+		
 	
 //		lblUsername.setLabelFor(textFieldUsername);
 		

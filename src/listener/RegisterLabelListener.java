@@ -23,7 +23,7 @@ public class RegisterLabelListener implements MouseListener{
 	 JFrame nextFrame;
 	 String nextFrameName;
 	public RegisterLabelListener(JLabel label,JFrame frame,String nextFrame ) {
-		// TODO Auto-generated constructor stub
+		
 		this.label = label;
 		this.frame = frame;
 		this.nextFrameName = nextFrame;
@@ -32,7 +32,7 @@ public class RegisterLabelListener implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 		if(nextFrameName=="login") {
 			nextFrame= new Login();
@@ -57,14 +57,14 @@ public class RegisterLabelListener implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		this.label.setForeground(Color.GRAY);
 		this.label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		this.label.setForeground(Color.LIGHT_GRAY);
 	}
 

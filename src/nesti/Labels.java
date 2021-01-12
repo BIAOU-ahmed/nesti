@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 public class Labels extends JLabel {
 
 	public Labels(int x, int y,int heigth, int width,String value, Font font) {
-		// TODO Auto-generated constructor stub
 		
 		this.setText(value);
 		this.setHorizontalAlignment(SwingConstants.RIGHT);
